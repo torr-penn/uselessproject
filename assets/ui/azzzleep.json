@@ -1,0 +1,102 @@
+{
+"com.badlogic.gdx.graphics.g2d.BitmapFont": {
+	"bar-font": {
+		"file": "Prisma.fnt"
+	},
+	"comment": {
+		"file": "gisele.fnt"
+	},
+	"comment2": {
+		"file": "emmasophia.fnt"
+	},
+	"default-font": {
+		"file": "Gorilla Black.fnt"
+	},
+	"MONOFONT": {
+		"file": "MONOFONT.fnt"
+	},
+	"smallfont": {
+		"file": "bluecond.fnt"
+	}
+},
+"com.badlogic.gdx.graphics.Color": {
+	"black": {
+		"r": 0,
+		"g": 0,
+		"b": 0,
+		"a": 1
+	},
+	"blue": {
+		"r": 0,
+		"g": 0.13077807,
+		"b": 1,
+		"a": 1
+	},
+	"grey": {
+		"r": 0.5366667,
+		"g": 0.5366667,
+		"b": 0.5366667,
+		"a": 1
+	},
+	"lightblue": {
+		"r": 0.18,
+		"g": 0.7942254,
+		"b": 1,
+		"a": 1
+	},
+	"purple": {
+		"r": 0.8810113,
+		"g": 0.26044446,
+		"b": 0.9766667,
+		"a": 1
+	},
+	"white": {
+		"r": 1,
+		"g": 1,
+		"b": 1,
+		"a": 1
+	},
+	"yellow": {
+		"r": 1,
+		"g": 0.7778333,
+		"b": 0,
+		"a": 1
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
+	"default": {
+		"font": "smallfont",
+		"fontColor": "white"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle": {
+	"default": {
+		"font": "default-font",
+		"fontColor": "white",
+		"cursor": "cursor"
+	},
+	"login": {
+		"font": "default-font",
+		"fontColor": "black",
+		"focusedFontColor": "yellow",
+		"background": "default-round",
+		"focusedBackground": "default-round-down",
+		"cursor": "cursor",
+		"messageFont": "default-font",
+		"messageFontColor": "black"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle": {
+	"default": {
+		"label": "default"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle": {
+	"login": {
+		"background": "my-window",
+		"titleFont": "comment2",
+		"titleFontColor": "blue",
+		"stageBackground": "transparent_bg"
+	}
+}
+}
