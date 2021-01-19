@@ -20,7 +20,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import com.gtasoft.uselessproject.UselessProject;
 import de.eskalon.commons.screen.ManagedScreen;
-import de.eskalon.commons.screen.transition.impl.ShaderTransition;
 import de.eskalon.commons.screen.transition.impl.SlidingDirection;
 import de.eskalon.commons.screen.transition.impl.SlidingInTransition;
 
@@ -236,6 +235,7 @@ public class BuggyScreen extends ManagedScreen implements InputProcessor {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
+        game.getBatch().setProjectionMatrix(viewport.getCamera().combined);
 
     }
 

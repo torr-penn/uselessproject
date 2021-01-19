@@ -8,8 +8,6 @@ import de.eskalon.commons.core.ManagedGame;
 import de.eskalon.commons.screen.ManagedScreen;
 import de.eskalon.commons.screen.transition.ScreenTransition;
 import de.eskalon.commons.screen.transition.impl.BlendingTransition;
-import de.eskalon.commons.screen.transition.impl.ShaderTransition;
-import de.eskalon.commons.screen.transition.impl.SlidingInTransition;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class UselessProject  extends ManagedGame<ManagedScreen, ScreenTransition> {
@@ -27,13 +25,14 @@ public class UselessProject  extends ManagedGame<ManagedScreen, ScreenTransition
     @Override
     public void create() {
         super.create();
+        setBatch(new SpriteBatch());
         workingScreen= new WorkingScreen(this);
         buggyScreen=new BuggyScreen(this);
-        batch = new SpriteBatch();
+
         this.screenManager.addScreen("buggy", buggyScreen);
         this.screenManager.addScreen("working", workingScreen);
 
-        BlendingTransition blendingTransition = new BlendingTransition(batch, 1F, Interpolation.pow2In);
+        BlendingTransition blendingTransition = new BlendingTransition(getBatch(), 1F, Interpolation.pow2In);
         screenManager.addScreenTransition("blending_transition", blendingTransition);
         screenManager.pushScreen("working", "blending_transition");
     }
@@ -42,7 +41,8 @@ public class UselessProject  extends ManagedGame<ManagedScreen, ScreenTransition
     public void resize(int width, int height) {
         super.resize(width, height);
 
-        this.batch.getProjectionMatrix().setToOrtho2D(0, 0, width, height);
+        this.getBatch().getProjectionMatrix().setToOrtho2D(0, 0, width, height);
+
     }
 
 
@@ -68,5 +68,13 @@ public class UselessProject  extends ManagedGame<ManagedScreen, ScreenTransition
 
     public void setVertical(boolean vertical) {
         this.vertical = vertical;
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(SpriteBatch batch) {
+        this.batch = batch;
     }
 }
