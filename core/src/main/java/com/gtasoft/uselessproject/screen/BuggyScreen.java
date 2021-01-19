@@ -203,8 +203,9 @@ public class BuggyScreen extends ManagedScreen implements InputProcessor {
 
     @Override
     public void render(float delta) {
-        //viewport.apply(); NO CALL
-        displayInfo.setText(//"Window w "+width+ "h "+height+ "\n"+
+       // viewport.apply(); //NO CALL
+        getStage().getViewport().apply();
+        displayInfo.setText(
                 " viewport  width "+viewport.getScreenWidth()+ " height "+viewport.getScreenHeight()+"\n"+
                         " viewport  x "+viewport.getScreenX()+ " y "+viewport.getScreenY()+"\n"+
                         " vport World  width "+viewport.getWorldWidth()+ " height "+viewport.getWorldHeight()+"\n"+
@@ -220,7 +221,7 @@ public class BuggyScreen extends ManagedScreen implements InputProcessor {
             //           camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
             translated = true;
         }
-        //    sb.setProjectionMatrix(camera.combined);
+           sb.setProjectionMatrix(camera.combined);
         camera.update();
 
         sb.begin();
@@ -235,6 +236,7 @@ public class BuggyScreen extends ManagedScreen implements InputProcessor {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
+
         game.getBatch().setProjectionMatrix(viewport.getCamera().combined);
 
     }

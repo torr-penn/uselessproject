@@ -216,7 +216,7 @@ public class WorkingScreen extends ManagedScreen implements InputProcessor {
             //           camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
             translated = true;
         }
-    //    sb.setProjectionMatrix(camera.combined);
+        sb.setProjectionMatrix(camera.combined);
         camera.update();
 
         sb.begin();
