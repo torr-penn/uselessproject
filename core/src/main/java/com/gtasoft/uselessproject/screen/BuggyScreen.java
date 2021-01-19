@@ -20,6 +20,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import com.gtasoft.uselessproject.UselessProject;
 import de.eskalon.commons.screen.ManagedScreen;
+import de.eskalon.commons.screen.transition.impl.ShaderTransition;
+import de.eskalon.commons.screen.transition.impl.SlidingDirection;
+import de.eskalon.commons.screen.transition.impl.SlidingInTransition;
 
 
 public class BuggyScreen extends ManagedScreen implements InputProcessor {
@@ -87,6 +90,9 @@ public class BuggyScreen extends ManagedScreen implements InputProcessor {
         stateTime = 0f;
         sb = new SpriteBatch();
         skin =new Skin(Gdx.files.internal("ui/azzzleep.json"));
+
+        SlidingInTransition slidingInTransition=new SlidingInTransition(sb, SlidingDirection.UP,1F);
+        getGame().getScreenManager().addScreenTransition("slidingIn_transition", slidingInTransition);
 
         imgBackground = new Texture(Gdx.files.internal("img/bg_greysand.png"));
 
@@ -168,7 +174,8 @@ public class BuggyScreen extends ManagedScreen implements InputProcessor {
         btnNext.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent e, float x, float y, int point, int button) {
-                getGame().getScreenManager().pushScreen("menu", null);
+                getGame().getScreenManager().pushScreen("working", "slidingIn_transition");
+
                 //game.setScreen(game.getHelpScreen());
                 return;
             }

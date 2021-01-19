@@ -8,6 +8,8 @@ import de.eskalon.commons.core.ManagedGame;
 import de.eskalon.commons.screen.ManagedScreen;
 import de.eskalon.commons.screen.transition.ScreenTransition;
 import de.eskalon.commons.screen.transition.impl.BlendingTransition;
+import de.eskalon.commons.screen.transition.impl.ShaderTransition;
+import de.eskalon.commons.screen.transition.impl.SlidingInTransition;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class UselessProject  extends ManagedGame<ManagedScreen, ScreenTransition> {
@@ -25,40 +27,38 @@ public class UselessProject  extends ManagedGame<ManagedScreen, ScreenTransition
     @Override
     public void create() {
         super.create();
-        setMenuScreen(new WorkingScreen(this));
-        setIntroStoryScreen(new BuggyScreen(this));
+        workingScreen= new WorkingScreen(this);
+        buggyScreen=new BuggyScreen(this);
         batch = new SpriteBatch();
-        this.screenManager.addScreen("intro", getIntroStoryScreen());
-        this.screenManager.addScreen("menu", getMenuScreen());
+        this.screenManager.addScreen("buggy", buggyScreen);
+        this.screenManager.addScreen("working", workingScreen);
 
         BlendingTransition blendingTransition = new BlendingTransition(batch, 1F, Interpolation.pow2In);
         screenManager.addScreenTransition("blending_transition", blendingTransition);
-
-        this.screenManager.pushScreen("intro", "blending_transition");
-
+        screenManager.pushScreen("working", "blending_transition");
     }
 
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
 
-      //  this.batch.getProjectionMatrix().setToOrtho2D(0, 0, width, height);
+        this.batch.getProjectionMatrix().setToOrtho2D(0, 0, width, height);
     }
 
 
-    public BuggyScreen getIntroStoryScreen() {
+    public BuggyScreen getBuggyScreen() {
         return buggyScreen;
     }
 
-    public void setIntroStoryScreen(BuggyScreen buggyScreen) {
+    public void setBuggyScreen(BuggyScreen buggyScreen) {
         this.buggyScreen = buggyScreen;
     }
 
-    public WorkingScreen getMenuScreen() {
+    public WorkingScreen getWorkingScreen() {
         return workingScreen;
     }
 
-    public void setMenuScreen(WorkingScreen workingScreen) {
+    public void setWorkingScreen(WorkingScreen workingScreen) {
         this.workingScreen = workingScreen;
     }
 

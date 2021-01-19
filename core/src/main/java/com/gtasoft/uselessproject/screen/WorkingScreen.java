@@ -19,6 +19,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import com.gtasoft.uselessproject.UselessProject;
 import de.eskalon.commons.screen.ManagedScreen;
+import de.eskalon.commons.screen.transition.impl.HorizontalSlicingTransition;
+import de.eskalon.commons.screen.transition.impl.ShaderTransition;
+import de.eskalon.commons.screen.transition.impl.SlidingDirection;
+import de.eskalon.commons.screen.transition.impl.SlidingInTransition;
 
 
 public class WorkingScreen extends ManagedScreen implements InputProcessor {
@@ -87,6 +91,9 @@ public class WorkingScreen extends ManagedScreen implements InputProcessor {
         skin =new Skin(Gdx.files.internal("ui/azzzleep.json"));
 
         imgBackground = new Texture(Gdx.files.internal("img/bg_greysand.png"));
+
+        HorizontalSlicingTransition slicingTransition = new HorizontalSlicingTransition(sb, 5, 1F);
+        getGame().getScreenManager().addScreenTransition("slicing_transition", slicingTransition);
 
         Texture imgExitSmall = new Texture(Gdx.files.internal("img/menu/cross-icon-small.png"));
         skin.add("imgExitSmall", imgExitSmall);
@@ -164,7 +171,7 @@ public class WorkingScreen extends ManagedScreen implements InputProcessor {
         btnBack.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent e, float x, float y, int point, int button) {
-                getGame().getScreenManager().pushScreen("intro", null);
+                getGame().getScreenManager().pushScreen("buggy", "slicing_transition");
                 //game.setScreen(game.getHelpScreen());
                 return;
             }
