@@ -1,4 +1,5 @@
-package com.gtasoft.uselessproject.menu;
+package com.gtasoft.uselessproject.screen;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -21,14 +22,14 @@ import com.gtasoft.uselessproject.UselessProject;
 import de.eskalon.commons.screen.ManagedScreen;
 
 
-public class MenuScreen extends ManagedScreen implements InputProcessor {
+public class BuggyScreen extends ManagedScreen implements InputProcessor {
 
 
 
     private ImageButton btnExit;
 
 
-    private ImageButton btnHelp;
+    private ImageButton btnNext;
 
 
     private Stage stage;
@@ -40,10 +41,11 @@ public class MenuScreen extends ManagedScreen implements InputProcessor {
     Texture imgTitle;
     private Label displayInfo;
 
+    private Label explainProblem;
 
     Texture imgBackground;
 
-    Texture imgHelp;
+    Texture imgNext;
 
     int w;
     int h;
@@ -57,7 +59,7 @@ public class MenuScreen extends ManagedScreen implements InputProcessor {
     private SpriteBatch sb;
 
     // constructor to keep a reference to the main Game class
-    public MenuScreen(UselessProject game) {
+    public BuggyScreen(UselessProject game) {
         this.setGame(game);
         camera = new OrthographicCamera();
         if (game.isVertical()) {
@@ -96,17 +98,26 @@ public class MenuScreen extends ManagedScreen implements InputProcessor {
         btnExit = new ImageButton(ibtnStyle);
         Label.LabelStyle lblStyleMe = new Label.LabelStyle();
         lblStyleMe.fontColor = Color.GOLDENROD;
-        lblStyleMe.font = skin.getFont("default-font");
+        lblStyleMe.font = skin.getFont("bar-font");
 
         displayInfo=new Label("useful info",skin);
         displayInfo.setStyle(lblStyleMe);
-        displayInfo.setPosition(100, h/2,Align.left);
+        displayInfo.setPosition(5, h/2+200,Align.left);
 
-        imgHelp = new Texture(Gdx.files.internal("img/menu/help-icon.png"));
-        skin.add("imgHelp", imgHelp);
+
+        Label.LabelStyle lblStylecomment = new Label.LabelStyle();
+        lblStylecomment.fontColor = Color.GOLDENROD;
+        lblStylecomment.font = skin.getFont("comment2");
+
+        explainProblem=new Label("In this version resizing screen sometimes \n make fitviewport to expand to fullscreen",skin);
+        explainProblem.setStyle(lblStylecomment);
+        explainProblem.setPosition(5, h/5);
+
+        imgNext = new Texture(Gdx.files.internal("img/menu/next-icon.png"));
+        skin.add("imgNext", imgNext);
         ImageButton.ImageButtonStyle ibtnStyleHelp = new ImageButton.ImageButtonStyle();
-        ibtnStyleHelp.up = skin.getDrawable("imgHelp");
-        btnHelp = new ImageButton(ibtnStyleHelp);
+        ibtnStyleHelp.up = skin.getDrawable("imgNext");
+        btnNext = new ImageButton(ibtnStyleHelp);
 
 
 
@@ -122,11 +133,11 @@ public class MenuScreen extends ManagedScreen implements InputProcessor {
 
         if (getGame().isVertical()) {
             btnExit.setPosition(w - 24 - 32, h - 24 - 32);
-            btnHelp.setPosition(w / 2 - 296, hmiddle - 200);
+            btnNext.setPosition(w - 296, hmiddle - 200);
 
         } else {
             btnExit.setPosition(w - 24 - 32, h - 24 - 32);
-            btnHelp.setPosition(w / 2 - 296, hmiddle - 200);
+            btnNext.setPosition(w - 296, hmiddle - 200);
         }
 
 
@@ -153,11 +164,11 @@ public class MenuScreen extends ManagedScreen implements InputProcessor {
 
 
 
-        btnHelp.setSize(96, 96);
-        btnHelp.addListener(new ClickListener() {
+        btnNext.setSize(96, 96);
+        btnNext.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent e, float x, float y, int point, int button) {
-                getGame().getScreenManager().pushScreen("intro", null);
+                getGame().getScreenManager().pushScreen("menu", null);
                 //game.setScreen(game.getHelpScreen());
                 return;
             }
@@ -171,9 +182,10 @@ public class MenuScreen extends ManagedScreen implements InputProcessor {
 
 
         getStage().setViewport(viewport);
-        getStage().addActor(btnHelp);
+        getStage().addActor(btnNext);
         getStage().addActor(btnExit);
         getStage().addActor(displayInfo);
+        getStage().addActor(explainProblem);
         addInputProcessor(getStage());
         addInputProcessor(this);
 
@@ -185,6 +197,16 @@ public class MenuScreen extends ManagedScreen implements InputProcessor {
 
     @Override
     public void render(float delta) {
+        //viewport.apply(); NO CALL
+        displayInfo.setText(//"Window w "+width+ "h "+height+ "\n"+
+                " viewport  width "+viewport.getScreenWidth()+ " height "+viewport.getScreenHeight()+"\n"+
+                        " viewport  x "+viewport.getScreenX()+ " y "+viewport.getScreenY()+"\n"+
+                        " vport World  width "+viewport.getWorldWidth()+ " height "+viewport.getWorldHeight()+"\n"+
+                        " camera  width "+camera.viewportWidth+ " height "+camera.viewportHeight+"\n"+
+                        " gdx graphics  width "+Gdx.graphics.getWidth()+ " height "+Gdx.graphics.getHeight()+"\n"+
+                        " gdx buffer width "+Gdx.graphics.getBackBufferWidth()+ " height "+Gdx.graphics.getBackBufferHeight()+"\n"
+
+        );
 
         Gdx.gl.glClearColor(0f, 0f, 0f, 0.22f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -192,8 +214,8 @@ public class MenuScreen extends ManagedScreen implements InputProcessor {
             //           camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
             translated = true;
         }
+        //    sb.setProjectionMatrix(camera.combined);
         camera.update();
-        sb.setProjectionMatrix(camera.combined);
 
         sb.begin();
         sb.draw(getImgBackground(), 0, 0, w, h, 0, 1, 1, 0);
@@ -207,8 +229,7 @@ public class MenuScreen extends ManagedScreen implements InputProcessor {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
-        displayInfo.setText("Window w "+width+ "h "+height+ "\n"+
-                " viewport  width "+viewport.getScreenWidth()+ " height "+viewport.getScreenHeight());
+
     }
 
     @Override

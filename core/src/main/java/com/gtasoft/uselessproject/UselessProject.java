@@ -1,11 +1,9 @@
 package com.gtasoft.uselessproject;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
-import com.gtasoft.uselessproject.intro.IntroStoryScreen;
-import com.gtasoft.uselessproject.menu.MenuScreen;
+import com.gtasoft.uselessproject.screen.BuggyScreen;
+import com.gtasoft.uselessproject.screen.WorkingScreen;
 import de.eskalon.commons.core.ManagedGame;
 import de.eskalon.commons.screen.ManagedScreen;
 import de.eskalon.commons.screen.transition.ScreenTransition;
@@ -13,8 +11,8 @@ import de.eskalon.commons.screen.transition.impl.BlendingTransition;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class UselessProject  extends ManagedGame<ManagedScreen, ScreenTransition> {
-    private IntroStoryScreen introStoryScreen;
-    private MenuScreen menuScreen;
+    private BuggyScreen buggyScreen;
+    private WorkingScreen workingScreen;
     private SpriteBatch batch;
     private boolean vertical;
     public UselessProject(boolean vertical) {
@@ -27,8 +25,8 @@ public class UselessProject  extends ManagedGame<ManagedScreen, ScreenTransition
     @Override
     public void create() {
         super.create();
-        setMenuScreen(new MenuScreen(this));
-        setIntroStoryScreen(new IntroStoryScreen(this));
+        setMenuScreen(new WorkingScreen(this));
+        setIntroStoryScreen(new BuggyScreen(this));
         batch = new SpriteBatch();
         this.screenManager.addScreen("intro", getIntroStoryScreen());
         this.screenManager.addScreen("menu", getMenuScreen());
@@ -44,24 +42,24 @@ public class UselessProject  extends ManagedGame<ManagedScreen, ScreenTransition
     public void resize(int width, int height) {
         super.resize(width, height);
 
-        this.batch.getProjectionMatrix().setToOrtho2D(0, 0, width, height);
+      //  this.batch.getProjectionMatrix().setToOrtho2D(0, 0, width, height);
     }
 
 
-    public IntroStoryScreen getIntroStoryScreen() {
-        return introStoryScreen;
+    public BuggyScreen getIntroStoryScreen() {
+        return buggyScreen;
     }
 
-    public void setIntroStoryScreen(IntroStoryScreen introStoryScreen) {
-        this.introStoryScreen = introStoryScreen;
+    public void setIntroStoryScreen(BuggyScreen buggyScreen) {
+        this.buggyScreen = buggyScreen;
     }
 
-    public MenuScreen getMenuScreen() {
-        return menuScreen;
+    public WorkingScreen getMenuScreen() {
+        return workingScreen;
     }
 
-    public void setMenuScreen(MenuScreen menuScreen) {
-        this.menuScreen = menuScreen;
+    public void setMenuScreen(WorkingScreen workingScreen) {
+        this.workingScreen = workingScreen;
     }
 
     public boolean isVertical() {
